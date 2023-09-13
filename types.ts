@@ -19,6 +19,7 @@ type LiveScoreEventType = {
   isLive: boolean;
   winningTeam: "home" | "away" | "none";
   time: string;
+  startTime: number;
   homeTeam: LiveScoreTeamDetailsType;
   awayTeam: LiveScoreTeamDetailsType;
 };

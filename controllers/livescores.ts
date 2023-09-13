@@ -2,7 +2,7 @@ import axios from "axios";
 import asyncHandler from "express-async-handler";
 import { AllLiveScoresType } from "../types";
 
-export const getLivescores = asyncHandler(async (req: any, res: any) => {
+export const getLivescores = async () => {
   const options = {
     method: "GET",
     headers: {
@@ -16,7 +16,7 @@ export const getLivescores = asyncHandler(async (req: any, res: any) => {
   };
 
   const apiData = {
-    date: "20230911",
+    date: "20230913",
     unknown: 1,
     countryCode: "NG",
     locale: "en",
@@ -32,9 +32,7 @@ export const getLivescores = asyncHandler(async (req: any, res: any) => {
     const mainResponse = response.data["Stages"];
 
     if (!mainResponse)
-      return res
-        .status(500)
-        .json({ message: "Couldn't fetch livescores", succeeded: false });
+      return { message: "Couldn't fetch livescores", succeeded: false };
 
     const data: AllLiveScoresType[] = mainResponse.map((stage: any) => ({
       details: {
@@ -50,6 +48,7 @@ export const getLivescores = asyncHandler(async (req: any, res: any) => {
         isLive: true,
         winningTeam: "home",
         time: event["Eps"],
+        startTime: event["Esd"],
         homeTeam: {
           id: event["T1"][0]["ID"],
           name: event["T1"][0]["Nm"],
@@ -65,18 +64,16 @@ export const getLivescores = asyncHandler(async (req: any, res: any) => {
       })),
     }));
 
-    return res.json({
+    return {
       message: "Success",
       succeeded: true,
       data,
-    });
+    };
   } catch (err: any) {
     console.log(err.message);
-    return res
-      .status(500)
-      .json({ message: "Couldn't fetch livescores", succeeded: false });
+    return { message: "Couldn't fetch livescores", succeeded: false };
   }
-});
+};
 
 export const getLivescore = asyncHandler(async (req: any, res: any) => {
   const options = {

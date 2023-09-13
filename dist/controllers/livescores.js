@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLivescore = exports.getLivescores = void 0;
 const axios_1 = __importDefault(require("axios"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-exports.getLivescores = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getLivescores = () => __awaiter(void 0, void 0, void 0, function* () {
     const options = {
         method: "GET",
         headers: {
@@ -28,7 +28,7 @@ exports.getLivescores = (0, express_async_handler_1.default)((req, res) => __awa
         },
     };
     const apiData = {
-        date: "20230911",
+        date: "20230913",
         unknown: 1,
         countryCode: "NG",
         locale: "en",
@@ -38,9 +38,7 @@ exports.getLivescores = (0, express_async_handler_1.default)((req, res) => __awa
         const response = yield axios_1.default.get(`${process.env.LIVESCORE_BASE_URL}/${apiData.date}/${apiData.unknown}?countryCode=${apiData.countryCode}&locale=${apiData.locale}&MD=${apiData.secondUnknown}`, options);
         const mainResponse = response.data["Stages"];
         if (!mainResponse)
-            return res
-                .status(500)
-                .json({ message: "Couldn't fetch livescores", succeeded: false });
+            return { message: "Couldn't fetch livescores", succeeded: false };
         const data = mainResponse.map((stage) => ({
             details: {
                 stageId: stage["Sid"],
@@ -55,6 +53,7 @@ exports.getLivescores = (0, express_async_handler_1.default)((req, res) => __awa
                 isLive: true,
                 winningTeam: "home",
                 time: event["Eps"],
+                startTime: event["Esd"],
                 homeTeam: {
                     id: event["T1"][0]["ID"],
                     name: event["T1"][0]["Nm"],
@@ -69,19 +68,18 @@ exports.getLivescores = (0, express_async_handler_1.default)((req, res) => __awa
                 },
             })),
         }));
-        return res.json({
+        return {
             message: "Success",
             succeeded: true,
             data,
-        });
+        };
     }
     catch (err) {
         console.log(err.message);
-        return res
-            .status(500)
-            .json({ message: "Couldn't fetch livescores", succeeded: false });
+        return { message: "Couldn't fetch livescores", succeeded: false };
     }
-}));
+});
+exports.getLivescores = getLivescores;
 exports.getLivescore = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const options = {
         method: "GET",
