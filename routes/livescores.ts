@@ -1,6 +1,6 @@
 import express from "express";
-import { getLivescores } from "../controllers/livescores";
 const router = express.Router();
+import { getLivescores } from "../controllers/livescores";
 
 // router.route("/").get(liveScores);
 router.ws("/", (ws, req) => {
