@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3500;
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-app.use("/tournament-categories", require("./routes/tournament-categories"));
+// app.use("/tournament-categories", require("./routes/tournament-categories"));
 app.use("/news", require("./routes/news"));
 app.use("/livescores", require("./routes/livescores"));
 app.all("*", (req, res) => {
