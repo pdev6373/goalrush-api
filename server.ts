@@ -8,12 +8,14 @@ require("express-ws")(app);
 
 const corsOptions = require("./config/corsOptions");
 
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 3500;
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use("/tournament-categories", require("./routes/tournament-categories"));
+app.use("/news", require("./routes/news"));
 app.use("/livescores", require("./routes/livescores"));
 
 app.all("*", (req: Request, res: Response) => {

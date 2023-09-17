@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const livescores_1 = require("../controllers/livescores");
-// router.route("/").get(liveScores);
 router.ws("/", (ws, req) => {
-    ws.on("message", () => {
-        setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-            const livescores = yield (0, livescores_1.getLivescores)();
+    ws.on("message", () => __awaiter(void 0, void 0, void 0, function* () {
+        const livescores = yield (0, livescores_1.getLivescores)();
+        ws.send(JSON.stringify(livescores));
+        setInterval(() => {
+            // const livescores = await getLivescores();
             ws.send(JSON.stringify(livescores));
-        }), 60000);
-    });
+        }, 10000);
+    }));
 });
 module.exports = router;
