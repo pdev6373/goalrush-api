@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { TournamentCategoriesType } from "../types";
 import fs from "fs";
+import path from "path";
 
 export const getTournamentCategories = (req: Request, res: Response) => {
   const options = {
@@ -30,7 +31,10 @@ export const getTournamentCategories = (req: Request, res: Response) => {
     //   // options
     // );
 
-    const response: any = fs.readFileSync("y.json", { encoding: "utf-8" });
+    const response: any = fs.readFileSync(
+      path.join(__dirname, "..", "y.json"),
+      { encoding: "utf-8" }
+    );
 
     // const mainResponse = response.data["categories"];
     const mainResponse = JSON.parse(response)["categories"];

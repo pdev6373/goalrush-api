@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTournamentCategories = void 0;
 const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 const getTournamentCategories = (req, res) => {
     const options = {
         method: "GET",
@@ -30,7 +31,7 @@ const getTournamentCategories = (req, res) => {
         //   `${process.env.LIVESCORE_BASE_URL}/scheduled-events/sport/football/2023-09-15`
         //   // options
         // );
-        const response = fs_1.default.readFileSync("y.json", { encoding: "utf-8" });
+        const response = fs_1.default.readFileSync(path_1.default.join(__dirname, "..", "y.json"), { encoding: "utf-8" });
         // const mainResponse = response.data["categories"];
         const mainResponse = JSON.parse(response)["categories"];
         if (!mainResponse)

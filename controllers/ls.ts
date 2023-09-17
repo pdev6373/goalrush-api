@@ -1,82 +1,82 @@
 import asyncHandler from "express-async-handler";
 import { AllLiveScoresType } from "../types";
-import puppeteer from "puppeteer";
+// import puppeteer from "puppeteer";
 import { Request, Response } from "express";
 
-export const getLivescores = asyncHandler(async (req: any, res: any) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto("https://www.sofascore.com/", {
-    waitUntil: "domcontentloaded",
-  });
+// export const getLivescores = asyncHandler(async (req: any, res: any) => {
+// const browser = await puppeteer.launch();
+// const page = await browser.newPage();
+// await page.goto("https://www.sofascore.com/", {
+// waitUntil: "domcontentloaded",
+// });
 
-  // await browser.close();
+// await browser.close();
 
-  const getAllLiveScores = await page.evaluate(() => {
-    // let allTournaments: { tournament: any; events: any }[] = [];
-    // let oneTournament: any[] = [];
+// const getAllLiveScores = await page.evaluate(() => {
+// let allTournaments: { tournament: any; events: any }[] = [];
+// let oneTournament: any[] = [];
 
-    // const tournaments = document.querySelectorAll(
-    //   ".sc-fqkvVR.fxAOyU > div:not(.sc-fqkvVR) > *"
-    // );
+// const tournaments = document.querySelectorAll(
+//   ".sc-fqkvVR.fxAOyU > div:not(.sc-fqkvVR) > *"
+// );
 
-    const y = document.querySelector(
-      ".sc-fqkvVR.ldMYMQ.sc-d8bc48b6-2.lmVlEQ > .sc-fqkvVR.fxAOyU"
-    );
+// const y = document.querySelector(
+//   ".sc-fqkvVR.ldMYMQ.sc-d8bc48b6-2.lmVlEQ > .sc-fqkvVR.fxAOyU"
+// );
 
-    // y?.querySelectorAll("div");
+// y?.querySelectorAll("div");
 
-    return y?.innerHTML;
+// return y?.innerHTML;
 
-    // return Array.from(y).map((x) => x.innerHTML);
+// return Array.from(y).map((x) => x.innerHTML);
 
-    // const x = [].slice.call(tournaments);
-    // const x = Array.from(tournaments).map((x) => x.innerHTML);
+// const x = [].slice.call(tournaments);
+// const x = Array.from(tournaments).map((x) => x.innerHTML);
 
-    // return x;
-    // console.log("x: ", x);
+// return x;
+// console.log("x: ", x);
 
-    // Array.from(tournaments).forEach((tournament, index, array) => {
-    //   if (array.length - 1 === index) {
-    //     oneTournament.push(tournament.tagName);
-    //     allTournaments.push({
-    //       tournament: oneTournament[0],
-    //       events: oneTournament[1],
-    //     });
-    //     oneTournament = [];
-    //   } else {
-    //     if (tournament.tagName.toLowerCase() === "hr") {
-    //       allTournaments.push({
-    //         tournament: oneTournament[0],
-    //         events: oneTournament[1],
-    //       });
-    //       oneTournament = [];
-    //     } else {
-    //       oneTournament.push(tournament.tagName);
-    //     }
-    //   }
-    // });
+// Array.from(tournaments).forEach((tournament, index, array) => {
+//   if (array.length - 1 === index) {
+//     oneTournament.push(tournament.tagName);
+//     allTournaments.push({
+//       tournament: oneTournament[0],
+//       events: oneTournament[1],
+//     });
+//     oneTournament = [];
+//   } else {
+//     if (tournament.tagName.toLowerCase() === "hr") {
+//       allTournaments.push({
+//         tournament: oneTournament[0],
+//         events: oneTournament[1],
+//       });
+//       oneTournament = [];
+//     } else {
+//       oneTournament.push(tournament.tagName);
+//     }
+//   }
+// });
 
-    // return allTournaments;
-    //  console.log(x);
+// return allTournaments;
+//  console.log(x);
 
-    // ?.querySelector("div:not([class])")
-    // ?.getElementsByClassName("sc-fqkvVR byYarT");
+// ?.querySelector("div:not([class])")
+// ?.getElementsByClassName("sc-fqkvVR byYarT");
 
-    // return tournaments?.tagName;
+// return tournaments?.tagName;
 
-    // return (
-    //   tournaments &&
-    //   Array.from(tournaments).map((tournament) => tournament.tagName)
-    // );
-  });
+// return (
+//   tournaments &&
+//   Array.from(tournaments).map((tournament) => tournament.tagName)
+// );
+//   });
 
-  console.log(getAllLiveScores);
+//   console.log(getAllLiveScores);
 
-  return res.status(204).json({
-    message: "success",
-  });
-});
+//   return res.status(204).json({
+//     message: "success",
+//   });
+// });
 
 // export const getLivescores = async () => {
 //   const options = {

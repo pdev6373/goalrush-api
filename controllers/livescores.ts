@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import { AllLiveScoresType, ModifiedLivescoresType } from "../types";
 
 import fs from "fs";
+import path from "path";
 
 export const getLivescores = async () => {
   const data: AllLiveScoresType[] = [];
@@ -35,7 +36,7 @@ export const getLivescores = async () => {
     // );
 
     const response: any = fs.readFileSync(
-      "x.json",
+      path.join(__dirname, "..", "x.json"),
       { encoding: "utf-8" }
       // (err, data) => {
       //   if (err) throw err;
