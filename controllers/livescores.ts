@@ -1,6 +1,7 @@
 import axios from "axios";
 import asyncHandler from "express-async-handler";
 import { AllLiveScoresType, ModifiedLivescoresType } from "../types";
+const { ls } = require("../x");
 
 import fs from "fs";
 import path from "path";
@@ -35,17 +36,8 @@ export const getLivescores = async () => {
     //   // options
     // );
 
-    const response: any = fs.readFileSync(
-      path.join(__dirname, "..", "x.json"),
-      { encoding: "utf-8" }
-      // (err, data) => {
-      //   if (err) throw err;
-      //   res = data;
-      // }
-    );
-
     // const mainResponse = response.data["events"];
-    const mainResponse = JSON.parse(response)["events"];
+    const mainResponse = ls["events"];
 
     if (!mainResponse)
       return { message: "Couldn't fetch livescores", succeeded: false };

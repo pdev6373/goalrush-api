@@ -8,13 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLivescores = void 0;
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
+const { ls } = require("../x");
 const getLivescores = () => __awaiter(void 0, void 0, void 0, function* () {
     const data = [];
     const options = {
@@ -41,14 +37,8 @@ const getLivescores = () => __awaiter(void 0, void 0, void 0, function* () {
         //   `${process.env.LIVESCORE_BASE_URL}/scheduled-events/sport/football/2023-09-15`
         //   // options
         // );
-        const response = fs_1.default.readFileSync(path_1.default.join(__dirname, "..", "x.json"), { encoding: "utf-8" }
-        // (err, data) => {
-        //   if (err) throw err;
-        //   res = data;
-        // }
-        );
         // const mainResponse = response.data["events"];
-        const mainResponse = JSON.parse(response)["events"];
+        const mainResponse = ls["events"];
         if (!mainResponse)
             return { message: "Couldn't fetch livescores", succeeded: false };
         const tournaments = mainResponse
