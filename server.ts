@@ -14,7 +14,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use("/tournament-categories", require("./routes/tournament-categories"));
+app.use("/tournament-categories", require("./routes/tournament-categories"));
 app.use("/news", require("./routes/news"));
 app.use("/livescores", require("./routes/livescores"));
 
