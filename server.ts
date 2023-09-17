@@ -1,4 +1,4 @@
-require("dotenv").config();
+const x = require("dotenv").config();
 import express, { Express, Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
