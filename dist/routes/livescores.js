@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const livescores_1 = require("../controllers/livescores");
-router.ws("/", (ws, req) => {
+router.ws("/", (ws) => {
     ws.on("message", () => __awaiter(void 0, void 0, void 0, function* () {
         const livescores = yield (0, livescores_1.getLivescores)();
         ws.send(JSON.stringify(livescores));
@@ -25,4 +25,5 @@ router.ws("/", (ws, req) => {
         }, 10000);
     }));
 });
+router.route("/").get(livescores_1.getScoresByDate);
 module.exports = router;

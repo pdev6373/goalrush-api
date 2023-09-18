@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
-import { getLivescores } from "../controllers/livescores";
+import { getLivescores, getScoresByDate } from "../controllers/livescores";
 
-router.ws("/", (ws, req) => {
+router.ws("/", (ws) => {
   ws.on("message", async () => {
     const livescores = await getLivescores();
     ws.send(JSON.stringify(livescores));
@@ -13,5 +13,7 @@ router.ws("/", (ws, req) => {
     }, 10000);
   });
 });
+
+router.route("/").get(getScoresByDate);
 
 module.exports = router;
