@@ -3,7 +3,16 @@ const router = express.Router();
 import { getLivescores, getScoresByDate } from "../controllers/livescores";
 
 router.ws("/", (ws) => {
-  ws.on("message", async () => {
+  ws.on("close", () => {
+    console.log("The connection was closed!");
+    ws.terminate();
+    ws.close();
+    ws.removeAllListeners();
+  });
+
+  ws.on("message", async (e) => {
+    console.log(e);
+
     const livescores = await getLivescores();
     ws.send(JSON.stringify(livescores));
 

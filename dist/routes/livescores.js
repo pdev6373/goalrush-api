@@ -16,7 +16,14 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const livescores_1 = require("../controllers/livescores");
 router.ws("/", (ws) => {
-    ws.on("message", () => __awaiter(void 0, void 0, void 0, function* () {
+    ws.on("close", () => {
+        console.log("The connection was closed!");
+        ws.terminate();
+        ws.close();
+        ws.removeAllListeners();
+    });
+    ws.on("message", (e) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(e);
         const livescores = yield (0, livescores_1.getLivescores)();
         ws.send(JSON.stringify(livescores));
         setInterval(() => {

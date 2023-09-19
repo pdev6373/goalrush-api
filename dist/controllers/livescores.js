@@ -78,7 +78,6 @@ const getScoresByDate = (req, res) => __awaiter(void 0, void 0, void 0, function
                 .status(500)
                 .json({ message: "Couldn't fetch livescores", succeeded: false });
         const data = (0, livescoresMapper_1.liveScoresMapper)(response, date);
-        console.log(data);
         res.json({
             message: "Success",
             succeeded: true,

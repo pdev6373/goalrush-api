@@ -78,8 +78,6 @@ export const getScoresByDate = async (req: Request, res: Response) => {
 
     const data = liveScoresMapper(response, date);
 
-    console.log(data);
-
     res.json({
       message: "Success",
       succeeded: true,
