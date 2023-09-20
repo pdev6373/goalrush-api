@@ -4,22 +4,20 @@ import { getLivescores, getScoresByDate } from "../controllers/livescores";
 
 router.ws("/", (ws) => {
   ws.on("close", () => {
-    console.log("The connection was closed!");
     ws.terminate();
     ws.close();
     ws.removeAllListeners();
   });
 
-  ws.on("message", async (e) => {
-    console.log(e);
-
-    const livescores = await getLivescores();
-    ws.send(JSON.stringify(livescores));
-
-    setInterval(() => {
-      // const livescores = await getLivescores();
+  ws.on("message", async () => {
+    const ls = async () => {
+      const livescores = await getLivescores();
       ws.send(JSON.stringify(livescores));
-    }, 10000);
+
+      setTimeout(ls, 15000);
+    };
+
+    ls();
   });
 });
 

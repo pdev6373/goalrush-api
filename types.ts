@@ -1,22 +1,21 @@
-type MatchTimeType = {
-  initial: number;
-  max: number;
-  extra: number;
-  currentPeriodStartTimestamp: number;
-};
+// type MatchStatusType = {
+//   description:
+//     | "1st half"
+//     | "2nd half"
+//     | "Halftime"
+//     | "Not started"
+//     | "Postponed"
+//     | "Ended"
+//     | "Canceled";
+//   type: "inprogress" | "notstarted" | "postponed" | "finished" | "canceled";
+// };
 
-type MatchStatusType = {
-  code: number;
-  description:
-    | "1st half"
-    | "2nd half"
-    | "Halftime"
-    | "Not started"
-    | "Postponed"
-    | "Ended"
-    | "Canceled";
-  type: "inprogress" | "notstarted" | "postponed" | "finished" | "canceled";
-};
+export type MatchStatusType =
+  | "Finished"
+  | "Postponed"
+  | "Cancelled"
+  | "Half Time"
+  | string;
 
 type LiveScoreDetailsType = {
   // stageId: string;
@@ -30,7 +29,7 @@ type LiveScoreDetailsType = {
   // tournamentRoute: string;
   tournamentName: string;
   tournamentSlug: string;
-  time: MatchTimeType;
+  time: string;
   competitionImage: string;
   // competitionId: string;
   // competitionRoute: string;
@@ -46,7 +45,6 @@ type LiveScoreTeamDetailsType = {
   colors: object;
   code: string;
   logo: string;
-  score: string | undefined;
 };
 
 type LiveScoreEventType = {
@@ -60,12 +58,11 @@ type LiveScoreEventType = {
 
   id: string;
   route: string;
-  time: MatchTimeType;
-  changeTime: number;
   startTime: number;
-  status: MatchStatusType;
+  time: MatchStatusType;
   homeTeam: LiveScoreTeamDetailsType;
   awayTeam: LiveScoreTeamDetailsType;
+  score: string;
 };
 
 export type AllLiveScoresType = {

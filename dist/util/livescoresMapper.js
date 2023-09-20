@@ -1,49 +1,44 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.liveScoresMapper = void 0;
-const format_1 = __importDefault(require("date-fns/format"));
 const liveScoresMapper = (array, date) => {
     const data = [];
-    const tournaments = array
-        .filter((tournament) => (0, format_1.default)(new Date(tournament["startTimestamp"] * 1000), "yyyy-MM-dd") ===
-        date)
-        .map((tournament) => ({
+    const tournaments = array.map((tournament) => ({
         details: {
-            tournamentName: tournament["tournament"]["name"],
-            tournamentSlug: tournament["tournament"]["slug"],
-            competitionName: tournament["tournament"]["category"]["name"],
-            competitionSlug: tournament["tournament"]["category"]["slug"],
-            competitionImage: `${process.env.COMPETITION_IMAGE_BASE_URL}/${tournament["tournament"]["category"]["alpha2"] ||
-                tournament["tournament"]["category"]["flag"]}.png`.toLowerCase(),
-            time: tournament["time"],
+            tournamentName: tournament["league_name"],
+            tournamentSlug: tournament["league_name"]
+                .split(" ")
+                .join("-")
+                .toLowerCase(),
+            competitionName: tournament["country_name"],
+            competitionSlug: tournament["country_name"]
+                .split(" ")
+                .join("-")
+                .toLowerCase(),
+            competitionImage: tournament["country_logo"],
+            time: tournament["event_date"],
         },
         event: {
-            id: tournament["id"],
-            route: tournament["slug"],
-            time: tournament["time"],
-            changeTime: tournament["changes"]["changeTimestamp"],
-            startTime: tournament["startTimestamp"],
-            status: tournament["status"],
+            id: tournament["event_key"],
+            time: tournament["event_status"],
+            startTime: tournament["event_time"],
+            score: tournament["event_final_result"],
+            route: "",
             homeTeam: {
-                name: tournament["homeTeam"]["name"],
-                shortName: tournament["homeTeam"]["shortName"],
-                colors: tournament["homeTeam"]["teamColors"],
-                code: tournament["homeTeam"]["nameCode"],
-                route: tournament["homeTeam"]["slug"],
-                score: tournament["homeScore"]["current"],
-                logo: `${process.env.LIVESCORE_BASE_URL}/team/${tournament["homeTeam"]["id"]}/image/small`,
+                name: tournament["event_home_team"],
+                shortName: tournament["event_home_team"],
+                logo: tournament["home_team_logo"],
+                route: tournament["event_home_team"],
+                colors: [],
+                code: "",
             },
             awayTeam: {
-                name: tournament["awayTeam"]["name"],
-                shortName: tournament["awayTeam"]["shortName"],
-                colors: tournament["awayTeam"]["teamColors"],
-                code: tournament["awayTeam"]["nameCode"],
-                route: tournament["awayTeam"]["slug"],
-                score: tournament["awayScore"]["current"],
-                logo: `${process.env.LIVESCORE_BASE_URL}/team/${tournament["awayTeam"]["id"]}/image/small`,
+                name: tournament["event_away_team"],
+                shortName: tournament["event_away_team"],
+                logo: tournament["away_team_logo"],
+                route: tournament["event_away_team"],
+                colors: [],
+                code: "",
             },
         },
     }));
