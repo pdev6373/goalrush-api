@@ -15,6 +15,9 @@ export type MatchStatusType =
   | "Postponed"
   | "Cancelled"
   | "Half Time"
+  | "After Pen."
+  | "Susp."
+  | "After ET"
   | string;
 
 type LiveScoreDetailsType = {

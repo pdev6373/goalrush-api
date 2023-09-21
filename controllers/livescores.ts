@@ -1,17 +1,13 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { liveScoresMapper } from "../util/livescoresMapper";
-import format from "date-fns/format";
 
-export const getLivescores = async () => {
+export const getLivescores = async (date: string) => {
+  console.log(date);
+
   try {
     const response = await axios.get(
-      `${process.env.LIVESCORE_BASE_URL}/?met=Fixtures&APIkey=${
-        process.env.LIVESCORE_KEY
-      }&from=${format(new Date(), "yyyy-MM-dd")}&to=${format(
-        new Date(),
-        "yyyy-MM-dd"
-      )}`
+      `${process.env.LIVESCORE_BASE_URL}/?met=Fixtures&APIkey=${process.env.LIVESCORE_KEY}&from=${date}&to=${date}`
     );
 
     const responseData = response.data.result;
@@ -19,10 +15,7 @@ export const getLivescores = async () => {
     if (!responseData)
       return { message: "Couldn't fetch livescores", succeeded: false };
 
-    const data = liveScoresMapper(
-      responseData,
-      format(new Date(), "yyyy-MM-dd")
-    );
+    const data = liveScoresMapper(responseData, date);
 
     return {
       message: "Success",

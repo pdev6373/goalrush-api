@@ -9,9 +9,9 @@ router.ws("/", (ws) => {
     ws.removeAllListeners();
   });
 
-  ws.on("message", async () => {
+  ws.on("message", async (date: string) => {
     const ls = async () => {
-      const livescores = await getLivescores();
+      const livescores = await getLivescores(JSON.parse(date));
       ws.send(JSON.stringify(livescores));
 
       setTimeout(ls, 15000);

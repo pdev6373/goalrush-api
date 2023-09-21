@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getScoresByDate = exports.getLivescores = void 0;
 const axios_1 = __importDefault(require("axios"));
 const livescoresMapper_1 = require("../util/livescoresMapper");
-const format_1 = __importDefault(require("date-fns/format"));
-const getLivescores = () => __awaiter(void 0, void 0, void 0, function* () {
+const getLivescores = (date) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(date);
     try {
-        const response = yield axios_1.default.get(`${process.env.LIVESCORE_BASE_URL}/?met=Fixtures&APIkey=${process.env.LIVESCORE_KEY}&from=${(0, format_1.default)(new Date(), "yyyy-MM-dd")}&to=${(0, format_1.default)(new Date(), "yyyy-MM-dd")}`);
+        const response = yield axios_1.default.get(`${process.env.LIVESCORE_BASE_URL}/?met=Fixtures&APIkey=${process.env.LIVESCORE_KEY}&from=${date}&to=${date}`);
         const responseData = response.data.result;
         if (!responseData)
             return { message: "Couldn't fetch livescores", succeeded: false };
-        const data = (0, livescoresMapper_1.liveScoresMapper)(responseData, (0, format_1.default)(new Date(), "yyyy-MM-dd"));
+        const data = (0, livescoresMapper_1.liveScoresMapper)(responseData, date);
         return {
             message: "Success",
             succeeded: true,

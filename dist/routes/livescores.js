@@ -21,9 +21,9 @@ router.ws("/", (ws) => {
         ws.close();
         ws.removeAllListeners();
     });
-    ws.on("message", () => __awaiter(void 0, void 0, void 0, function* () {
+    ws.on("message", (date) => __awaiter(void 0, void 0, void 0, function* () {
         const ls = () => __awaiter(void 0, void 0, void 0, function* () {
-            const livescores = yield (0, livescores_1.getLivescores)();
+            const livescores = yield (0, livescores_1.getLivescores)(JSON.parse(date));
             ws.send(JSON.stringify(livescores));
             setTimeout(ls, 15000);
         });
